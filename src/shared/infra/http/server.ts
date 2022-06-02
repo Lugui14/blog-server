@@ -3,11 +3,16 @@ import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 
+import router from "./routes";
+
 import { AppError } from "../../errors/AppError";
 
 const app = express();
 app.use(cors({ origin: "*" }));
+
 app.use(express.json());
+
+app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError)
