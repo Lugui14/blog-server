@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: blog_server
+    network_mode: "host"
+    volumes:
+      - .:/usr/app
