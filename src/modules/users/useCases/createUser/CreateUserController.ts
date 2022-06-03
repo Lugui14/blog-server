@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
-import { container } from "tsyringe";
 
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
-export class CreateUserController {
+class CreateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body;
-    const createUserUseCase = container.resolve(CreateUserUseCase);
+    const createUserUseCase = new CreateUserUseCase();
 
     const newUser = await createUserUseCase.execute({ name, email, password });
 
     return res.status(201).json(newUser);
   }
 }
+
+export { CreateUserController };
