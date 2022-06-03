@@ -1,4 +1,5 @@
 import "dot-env";
+import "reflect-metadata";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";

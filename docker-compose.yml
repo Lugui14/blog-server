@@ -4,6 +4,7 @@ services:
   app:
     build: .
     container_name: blog_server
-    network_mode: "host"
+    ports:
+      - "3000:3000"
     volumes:
       - .:/usr/app
