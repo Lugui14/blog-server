@@ -7,7 +7,7 @@ import { AppError } from "./../../../../shared/errors/AppError";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 
 class CreateUserUseCase {
-  constructor(private repo = prismaClient.user) {}
+  private repo: typeof prismaClient.user = prismaClient.user
 
   async execute({ name, email, password }: ICreateUserDTO): Promise<User> {
     const userAlreadyExists = await this.repo.findFirst({
