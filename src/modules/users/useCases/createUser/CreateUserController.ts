@@ -7,9 +7,9 @@ class CreateUserController {
     const { name, email, password } = req.body;
     const createUserUseCase = new CreateUserUseCase();
 
-    const newUser = await createUserUseCase.execute({ name, email, password });
+    await createUserUseCase.execute({ name, email, password });
 
-    return res.status(201).json(newUser);
+    return res.status(201).send();
   }
 }
 
