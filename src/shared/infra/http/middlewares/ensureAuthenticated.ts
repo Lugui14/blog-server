@@ -1,4 +1,4 @@
-import { Request, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 
 import { AppError } from "./../../../errors/AppError";
@@ -10,7 +10,11 @@ interface IPayload {
   sub: string;
 }
 
-export const ensureAuthenticated = async (req: Request, next: NextFunction) => {
+export async function ensureAuthenticated(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const authHeader = req.headers.authorization;
   if (!authHeader) throw new AppError("Token is missing.", 401);
 
@@ -29,8 +33,8 @@ export const ensureAuthenticated = async (req: Request, next: NextFunction) => {
 
     req.user = { id: user_id };
 
-    next();
+    return next();
   } catch {
     throw new AppError("Invalid Token.", 401);
   }
-};
+}
