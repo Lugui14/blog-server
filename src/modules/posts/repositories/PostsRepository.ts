@@ -13,12 +13,35 @@ export class PostsRepository implements IPostsRepository {
     return post;
   }
 
-  async findLastPosts(page: number): Promise<Post[]> {
+  async findLastPosts(page: number, filter: string): Promise<Post[]> {
     const SKIP = page * 20;
     const posts = await this.repo.findMany({
       skip: SKIP,
       take: 20,
       orderBy: { createdAt: "desc" },
+      where: {
+        OR: [
+          {
+            text: {
+              contains: filter,
+            },
+          },
+          {
+            user: {
+              name: {
+                contains: filter,
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
     return posts;
