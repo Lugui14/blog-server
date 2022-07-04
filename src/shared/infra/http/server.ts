@@ -11,6 +11,7 @@ import router from "./routes";
 import { AppError } from "../../errors/AppError";
 
 const app = express();
+app.use(cors());
 
 const serverHttp = http.createServer(app);
 const io = new Server(serverHttp, {
@@ -37,6 +38,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-serverHttp.listen(3333, () => console.log("Server is Running"));
+serverHttp.listen(4000, () => console.log("Server is Running"));
 
 export { io };
